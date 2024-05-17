@@ -1,47 +1,15 @@
+import 'dart:math';
+
 import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
-import 'package:tic_tac/models.dart';
 
-List<bool> postion = [false, false, false, false, false, false, false, false, false];
-late String usertype;
-List<Item> itmes = [
-  Item(
-    1,
-  ),
-  Item(
-    2,
-  ),
-  Item(
-    3,
-  ),
-  Item(
-    4,
-  ),
-  Item(
-    5,
-  ),
-  Item(
-    6,
-  ),
-  Item(
-    7,
-  ),
-  Item(
-    8,
-  ),
-  Item(
-    9,
-  )
-];
+List<int> indexpress = [];
 
 // ignore: must_be_immutable
 class MainPage extends StatefulWidget {
   String username;
   String userposition;
   MainPage({super.key, required this.username, required this.userposition});
-  settype() async {
-    await (usertype = userposition);
-  }
 
   @override
   // ignore: no_logic_in_create_state
@@ -51,14 +19,13 @@ class MainPage extends StatefulWidget {
 class _MainPageState extends State<MainPage> {
   int comprate = 0;
   int userrate = 0;
-
   int indexitems = 0;
-
   @override
   void initState() {
     indexitems = 0;
   }
 
+  List<String> itmes = ["", "", "", "", "", "", "", "", ""];
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -104,23 +71,120 @@ class _MainPageState extends State<MainPage> {
                 children: <Widget>[
                   Row(
                     mainAxisAlignment: MainAxisAlignment.spaceAround,
-                    children: <Widget>[for (indexitems = 0; indexitems < 3; indexitems++) itmes[indexitems]],
-                  ),
-                  const Divider(
-                    color: Color(0xffCCB893),
-                    thickness: 4,
+                    children: <Widget>[
+                      for (int i  = 0; i < 3; i++)
+                        InkWell(
+                          onTap: () {
+                            if (itmes[i] == "") {
+                              indexpress.add(i);
+                              if (widget.userposition == "X") {
+                                itmes[i] = "X";
+                                int randomIndex = Random().nextInt(9);
+                                while (indexpress.contains(randomIndex)) {
+                                  randomIndex = Random().nextInt(9);
+                                }
+                                itmes[i] = "O";
+                              } else {
+                                itmes[i] = "O";
+                                int randomIndex = Random().nextInt(9);
+                                while (indexpress.contains(randomIndex)) {
+                                  randomIndex = Random().nextInt(9);
+                                }
+                                itmes[i] = "X";
+                              }
+                              setState(() {});
+                            } 
+                          },
+                          child: Container(
+                            alignment: Alignment.center,
+                            height: 60,
+                            width: 60,
+                            decoration: BoxDecoration(boxShadow: const [BoxShadow(blurRadius: 0, spreadRadius: 3, color: Color(0xffCCB893))], borderRadius: BorderRadius.circular(15)),
+                            child: Text(
+                              itmes[indexitems],
+                              style: const TextStyle(fontSize: 25),
+                            ),
+                          ),
+                        ),
+                    ],
                   ),
                   Row(
                     mainAxisAlignment: MainAxisAlignment.spaceAround,
-                    children: <Widget>[for (int indexitems = 3; indexitems < 6; indexitems++) itmes[indexitems]],
-                  ),
-                  const Divider(
-                    color: Color(0xffCCB893),
-                    thickness: 4,
+                    children: <Widget>[
+                      for (indexitems; indexitems < 6; indexitems += 1)
+                        InkWell(
+                          onTap: () {
+                            if (itmes[indexitems] == "") {
+                              indexpress.add(indexitems);
+                              if (widget.userposition == "X") {
+                                itmes[indexitems] = "X";
+                                int randomIndex = Random().nextInt(9);
+                                while (indexpress.contains(randomIndex)) {
+                                  randomIndex = Random().nextInt(9);
+                                }
+                                itmes[randomIndex] = "O";
+                              } else {
+                                itmes[indexitems] = "O";
+                                int randomIndex = Random().nextInt(9);
+                                while (indexpress.contains(randomIndex)) {
+                                  randomIndex = Random().nextInt(9);
+                                }
+                                itmes[randomIndex] = "X";
+                              }
+                              setState(() {});
+                            }
+                          },
+                          child: Container(
+                            alignment: Alignment.center,
+                            height: 60,
+                            width: 60,
+                            decoration: BoxDecoration(boxShadow: const [BoxShadow(blurRadius: 0, spreadRadius: 3, color: Color(0xffCCB893))], borderRadius: BorderRadius.circular(15)),
+                            child: Text(
+                              itmes[indexitems],
+                              style: const TextStyle(fontSize: 25),
+                            ),
+                          ),
+                        ),
+                    ],
                   ),
                   Row(
                     mainAxisAlignment: MainAxisAlignment.spaceAround,
-                    children: <Widget>[for (int indexitems = 6; indexitems < 9; indexitems++) itmes[indexitems]],
+                    children: <Widget>[
+                      for (indexitems; indexitems < 9; indexitems += 1)
+                        InkWell(
+                          onTap: () {
+                            if (itmes[indexitems] == "") {
+                              indexpress.add(indexitems);
+                              if (widget.userposition == "X") {
+                                itmes[indexitems] = "X";
+                                int randomIndex = Random().nextInt(9);
+                                while (indexpress.contains(randomIndex)) {
+                                  randomIndex = Random().nextInt(9);
+                                }
+                                itmes[randomIndex] = "O";
+                              } else {
+                                itmes[indexitems] = "O";
+                                int randomIndex = Random().nextInt(9);
+                                while (indexpress.contains(randomIndex)) {
+                                  randomIndex = Random().nextInt(9);
+                                }
+                                itmes[randomIndex] = "X";
+                              }
+                              setState(() {});
+                            }
+                          },
+                          child: Container(
+                            alignment: Alignment.center,
+                            height: 60,
+                            width: 60,
+                            decoration: BoxDecoration(boxShadow: const [BoxShadow(blurRadius: 0, spreadRadius: 3, color: Color(0xffCCB893))], borderRadius: BorderRadius.circular(15)),
+                            child: Text(
+                              itmes[indexitems],
+                              style: const TextStyle(fontSize: 25),
+                            ),
+                          ),
+                        ),
+                    ],
                   ),
                 ],
               ),
@@ -144,7 +208,12 @@ class _MainPageState extends State<MainPage> {
                   ),
                   const Gap(20),
                   InkWell(
-                    onLongPress: () {},
+                    onLongPress: () {
+                      setState(() {
+                        itmes.clear();
+                        itmes = ["", "", "", "", "", "", "", "", ""];
+                      });
+                    },
                     child: Container(
                       alignment: Alignment.center,
                       padding: const EdgeInsets.all(10),
@@ -165,61 +234,46 @@ class _MainPageState extends State<MainPage> {
   }
 }
 
-// ignore: must_be_immutable
-class Item extends StatefulWidget {
-  int id;
-  String lable;
-  // ignore: use_key_in_widget_constructors
-  Item(this.id, [this.lable = ""]);
 
-  @override
-  State<Item> createState() => _ItemState();
-}
-
-class _ItemState extends State<Item> {
-  Widget checkcontainer() {
-    if (widget.lable == "O") {
-      return Container(
-        height: 50,
-        width: 50,
-        decoration: const BoxDecoration(image: DecorationImage(image: AssetImage("images/o.png"))),
-      );
-    } else if (widget.lable == "X") {
-      return Container(
-        height: 50,
-        width: 50,
-        decoration: const BoxDecoration(image: DecorationImage(image: AssetImage("images/x.png"))),
-      );
-    } else {
-      return InkWell(
-        onTap: () {
-          itmes.forEach((element) {
-            if (element.id == widget.id) {
-              element.lable = "O";
-              int i = itmes.indexOf(element);
-              postion[i] = true;
-            }
-          });
-          int randomindex = makeRandomTrue(postion);
-          postion[randomindex] = true;
-          itmes.forEach((element) {
-            print(randomindex);
-            if (element.id == randomindex) {
-              element.lable = "X";
-            }
-          });
-          setState(() {});
-        },
-        child: const SizedBox(
-          height: 50,
-          width: 50,
-        ),
-      );
+checkwinn(List boxes){
+  String checkWin() {
+    if (boxes[0] == "X" && boxes[1] == "X" && boxes[2] == "X") {
+      return "X";
+    } else if (boxes[3] == "X" && boxes[4] == "X" && boxes[5] == "X") {
+      return "X";
+    } else if (boxes[6] == "X" && boxes[7] == "X" && boxes[8] == "X") {
+      return "X";
+    } else if (boxes[0] == "X" && boxes[3] == "X" && boxes[6] == "X") {
+      return "X";
+    } else if (boxes[1] == "X" && boxes[4] == "X" && boxes[7] == "X") {
+      return "X";
+    } else if (boxes[2] == "X" && boxes[5] == "X" && boxes[8] == "X") {
+      return "X";
+    } else if (boxes[0] == "X" && boxes[4] == "X" && boxes[8] == "X") {
+      return "X";
+    } else if (boxes[2] == "X" && boxes[4] == "X" && boxes[6] == "X") {
+      return "X";
     }
+
+    if (boxes[0] == "O" && boxes[1] == "O" && boxes[2] == "O") {
+      return "O";
+    } else if (boxes[3] == "O" && boxes[4] == "O" && boxes[5] == "O") {
+      return "O";
+    } else if (boxes[6] == "O" && boxes[7] == "O" && boxes[8] == "O") {
+      return "O";
+    } else if (boxes[0] == "O" && boxes[3] == "O" && boxes[6] == "O") {
+      return "O";
+    } else if (boxes[1] == "O" && boxes[4] == "O" && boxes[7] == "O") {
+      return "O";
+    } else if (boxes[2] == "O" && boxes[5] == "O" && boxes[8] == "O") {
+      return "O";
+    } else if (boxes[0] == "O" && boxes[4] == "O" && boxes[8] == "O") {
+      return "O";
+    } else if (boxes[2] == "O" && boxes[4] == "O" && boxes[6] == "O") {
+      return "O";
+    }
+
+    return "";
   }
 
-  @override
-  Widget build(BuildContext context) {
-    return checkcontainer();
-  }
 }

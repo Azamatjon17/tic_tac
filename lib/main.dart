@@ -88,7 +88,7 @@ class _LoginPageState extends State<LoginPage> {
                   // Show a message if either the name or selection is missing
                   ScaffoldMessenger.of(context).showSnackBar(
                     const SnackBar(content: Text("Ismngizni va x yoki o ni tanlash majburiy")),
-                  );
+                  );  
                 }
               },
               child: const Text(
